@@ -1,0 +1,8 @@
+celery==3.1.23
+flask
+Flask-RESTful==0.3.6
+flask-restplus==0.10.1
+Flask-SQLAlchemy==2.1
+mysql-python
+sqlalchemy
+PyMySQL

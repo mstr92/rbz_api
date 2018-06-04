@@ -1,0 +1,39 @@
+db:
+  image: mysql:5.6
+  ports:
+    - "3306:3306"
+  restart: always
+  hostname: "db"
+  environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_USER=rbz_api_user
+     - MYSQL_PASS=rbz_api_pw
+     - MYSQL_DATABASE=rbz_api
+  volumes:
+    - ./mysql:/var/lib/mysql
+rabbitmq:
+  image: rabbitmq:3-management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+  hostname: "rabbit1"
+api:
+  build: .
+  ports:
+    - "5000:5000"
+  volumes:
+    - .:/api
+  links:
+    - db
+    - rabbitmq
+  command: python -u app.py
+celery:
+  build: .
+  volumes:
+    - .:/api
+  environment:
+    C_FORCE_ROOT: "True"
+  links:
+    - db
+    - rabbitmq
+  command: celery -A tasks.tasks worker -Q movies -B -l INFO
