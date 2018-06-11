@@ -39,44 +39,36 @@ class BotRequest(Resource):
         """
         data = request.json
 
-        # CalculateAndSaveResponse.delay()
-        test = CalculateAndSaveResponse.delay(1, json.dumps(data))
-        # test = CalculateAndSaveResponse.apply_async(queue='movies')
-
-        #test = {"test"}
-        test = None
-
        # Check if parent exists in database
-       #  parentId, parentResponse = check_if_entry_exists(json.dumps(data))
+        parentId, parentResponse = check_if_entry_exists(json.dumps(data))
 
         # Create new database entry and get entry id
         # If parent exists, the parentId and the parentResponse get set
-        # id = create_entry(json.dumps(data), parentResponse, parentId)
-        id = create_entry(json.dumps(data), "", "")
-        #
-        # # Check if response has to be calculated else return response
-        # if parentResponse == None:
-        #
-        #     task = celery.send_task('tasks.calculateAndSaveResponse', args=[id, json.dumps(data)], kwargs={})
-        #
-        #     # calculateAndSaveResponse.delay(id,json.dumps(data))
-        #
-        #     time.sleep(5)
-        #
-        #     modelObject = get_entry(id)
-        #
-        #     # Check if response is calculated after 5 seconds
-        #     # If true, return calculated response
-        #     # else return id
-        #     # TODO: return calculated response not working!!!
-        #     if modelObject.response == None:
-        #         return Response(response=str(id), mimetype='text/plain')
-        #     else:
-        #         return Response(response=str(modelObject.response), mimetype='text/plain')
-        #
-        # else:
-        #     return Response(parentResponse, mimetype='text/plain')
-        return Response(test, mimetype='text/plain')
+        id = create_entry(json.dumps(data), parentResponse, parentId)
+        # id = create_entry(json.dumps(data), "", "")
+
+        # Check if response has to be calculated else return response
+        if parentResponse == None:
+
+            # task = celery.send_task('tasks.calculateAndSaveResponse', args=[id, json.dumps(data)], kwargs={})
+
+            CalculateAndSaveResponse.delay(id,json.dumps(data))
+
+            # time.sleep(5)
+
+            modelObject = get_entry(id)
+
+            # Check if response is calculated after 5 seconds
+            # If true, return calculated response
+            # else return id
+            # TODO: return calculated response not working!!!
+            if modelObject.response == None:
+                return Response(response=str(id), mimetype='text/plain')
+            else:
+                return Response(response=str(modelObject.response), mimetype='text/plain')
+        else:
+            return Response(parentResponse, mimetype='text/plain')
+
 
 
 @ns.route('/<int:id>')
