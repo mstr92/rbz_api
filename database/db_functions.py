@@ -4,8 +4,9 @@
 from database import db
 from database.model import DataModel
 from datetime import datetime, timedelta
-from sqlalchemy import exc, create_engine
+from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String,TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI
+
 
 def create_entry(request, response, parentId):
     post = DataModel(request, response, parentId)
@@ -46,7 +47,31 @@ def set_response(id, retval):
         connection.execute('UPDATE rbz_api SET Response = "' + retval + '" WHERE Id = "' + str(id) + '";')
         trans.commit()
         connection.close()
-
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
+
+def get_entry1(id):
+    try:
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        connection = engine.connect()
+        trans = connection.begin()
+        result = connection.execute('SELECT * FROM rbz_api WHERE Id = "' + str(id)+ '";')
+        trans.commit()
+        connection.close()
+        return result['Response']
+    except exc.SQLAlchemyError:
+        print("No entry in Database")
+        return None
+
+def create_table_if_not_exists():
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
+    if not engine.dialect.has_table(engine, "rbz_api"):
+        metadata = MetaData(engine)
+        table = Table('rbz_api', metadata,
+                      Column('Id', Integer, primary_key=True, autoincrement=True),
+                      Column('Request', String(10000)),
+                      Column('Response', String(10000)),
+                      Column('AccessTime', TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
+                      Column('ParentId', Integer))
+        metadata.create_all()

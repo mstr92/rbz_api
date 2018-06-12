@@ -39,33 +39,33 @@ class BotRequest(Resource):
         """
         data = request.json
 
-       # Check if parent exists in database
+        # Check if parent exists in database
         parentId, parentResponse = check_if_entry_exists(json.dumps(data))
 
         # Create new database entry and get entry id
         # If parent exists, the parentId and the parentResponse get set
         id = create_entry(json.dumps(data), parentResponse, parentId)
-        # id = create_entry(json.dumps(data), "", "")
-
         # Check if response has to be calculated else return response
         if parentResponse == None:
 
-            # task = celery.send_task('tasks.calculateAndSaveResponse', args=[id, json.dumps(data)], kwargs={})
+            CalculateAndSaveResponse.delay(id, json.dumps(data))
 
-            CalculateAndSaveResponse.delay(id,json.dumps(data))
+            time.sleep(10)
 
-            # time.sleep(5)
-
-            modelObject = get_entry(id)
+            modelObject = get_entry1(id)
 
             # Check if response is calculated after 5 seconds
             # If true, return calculated response
             # else return id
             # TODO: return calculated response not working!!!
-            if modelObject.response == None:
+            # if modelObject.response == None:
+            #     return Response(response=str(id), mimetype='text/plain')
+            # else:
+            #     return Response(response=str(modelObject.response), mimetype='text/plain')
+            if modelObject == "":
                 return Response(response=str(id), mimetype='text/plain')
             else:
-                return Response(response=str(modelObject.response), mimetype='text/plain')
+                return Response(response=modelObject, mimetype='text/plain')
         else:
             return Response(parentResponse, mimetype='text/plain')
 
@@ -83,6 +83,7 @@ class BotResponse(Resource):
         """
         Return a response with given ID.
         """
+
         # Get Object from database with id
         modelObject = get_entry(id)
 

@@ -9,7 +9,6 @@ RESTPLUS_MASK_SWAGGER = False
 RESTPLUS_ERROR_404_HELP = False
 
 # SQLAlchemy settings
-# SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/rbz_api'
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@db/rbz_api'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 

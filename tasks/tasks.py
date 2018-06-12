@@ -7,8 +7,6 @@ from engine.connections import send_request_to_movie_engine
 from settings import RABBIT_PORT, RABBIT_HOST
 from database.db_functions import set_response
 
-# from db import get_db_connection
-
 ## Broker settings.
 BROKER_URL = u'amqp://guest:guest@{addr}:{port}//'.format(
     addr=RABBIT_HOST,
@@ -21,8 +19,7 @@ class CalculateAndSaveResponse(Task):
     queue = 'movies'
 
     def run(self, id, request):
-        retval = send_request_to_movie_engine("**m:the dark knight**")
-        return retval
+        send_request_to_movie_engine("**m:the dark knight**")
 
     def on_success(self, retval, task_id, args, kwargs):
         print('SUCCESS')

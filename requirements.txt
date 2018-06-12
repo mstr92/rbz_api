@@ -6,3 +6,4 @@ Flask-SQLAlchemy==2.1
 mysql-python
 sqlalchemy
 PyMySQL
+pyOpenSSL
