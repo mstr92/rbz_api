@@ -19,7 +19,8 @@ class CalculateAndSaveResponse(Task):
     queue = 'movies'
 
     def run(self, id, request):
-        send_request_to_movie_engine("**m:the dark knight**")
+        result = send_request_to_movie_engine("**m:the dark knight**")
+        return result
 
     def on_success(self, retval, task_id, args, kwargs):
         print('SUCCESS')
