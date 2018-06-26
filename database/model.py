@@ -9,7 +9,6 @@ class DataModel(db.Model):
     parentId = db.Column('ParentId', db.Integer)
 
     def __init__(self, request, response, parentId):
-        # self.id = id # should be autoincrement
         self.request = request
         self.response = response
         self.parentId = parentId

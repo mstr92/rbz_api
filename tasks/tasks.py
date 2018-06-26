@@ -19,12 +19,12 @@ class CalculateAndSaveResponse(Task):
     queue = 'movies'
 
     def run(self, id, request):
-        result = send_request_to_movie_engine("**m:the dark knight**")
+        result = send_request_to_movie_engine(request)
         return result
 
     def on_success(self, retval, task_id, args, kwargs):
         print('SUCCESS')
-        set_response(args[0], retval)
+        set_response(args[0], retval, True)
 
     def on_failure(self, exc, task_id, args, kwargs, einfo):
         print("ERROR: No Response calculated!")

@@ -5,7 +5,7 @@ from database import db
 from database.model import DataModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String,TIMESTAMP, text
-from settings import SQLALCHEMY_DATABASE_URI
+from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
 
 
 def create_entry(request, response, parentId):
@@ -20,7 +20,7 @@ def check_if_entry_exists(data):
     try:
         d = DataModel.query.filter(DataModel.request == data,
                                    DataModel.parentId == None,
-                                   DataModel.accessTime > datetime.today() - timedelta(days=7)).all()
+                                   DataModel.accessTime > datetime.today() - timedelta(days=EXPIRE_DAYS)).all()
         if len(d) == 0:
             return None, None
         else:
@@ -40,17 +40,24 @@ def get_entry(id):
         return None
 
 
-def set_response(id, retval):
+def set_response(id, retval, retry):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         connection = engine.connect()
         trans = connection.begin()
+        print("Save Response to Entry with ID: " + str(id))
         connection.execute('UPDATE rbz_api SET Response = "' + retval + '" WHERE Id = "' + str(id) + '";')
+        print("SAVED Response to Entry with ID: " + str(id))
         trans.commit()
         connection.close()
     except exc.SQLAlchemyError:
-        print("No entry in Database")
-        return None
+
+        print("No entry in Database with ID: " + str(id))
+        if retry:
+            set_response(id, retval, False)
+
+
+
 
 
 def create_table_if_not_exists():
@@ -61,6 +68,6 @@ def create_table_if_not_exists():
                       Column('Id', Integer, primary_key=True, autoincrement=True),
                       Column('Request', String(10000)),
                       Column('Response', String(10000)),
-                      Column('AccessTime', TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
+                      Column('AccessTime', TIMESTAMP, nullable=False, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
                       Column('ParentId', Integer))
         metadata.create_all()

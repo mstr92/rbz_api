@@ -21,3 +21,11 @@ ENGINE_PORT = 8008
 #RabbitMQ
 RABBIT_HOST = "rabbit1"
 RABBIT_PORT = 5672
+
+#Wait to get direct engine response
+SECONDS_TO_WAIT_FOR_RESPONSE = 5
+EXPIRE_DAYS = 7
+
+#Input Settings:
+MIN_YEAR = 1980
+MAX_YEAR = 2030

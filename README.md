@@ -4,6 +4,12 @@
 - Start docker: docker-compose up --build
 - Stop docker: docker-compose down
 
+## Used libraries
+- Flask with Swagger
+- SqlAlchemy
+- RabbitMQ
+- Celery
+
 ## User-Interfaces and User/Passwords:
 - Swagger UI : https://localhost:5000/api/
 - RabbitMQ: http://localhost:15672/

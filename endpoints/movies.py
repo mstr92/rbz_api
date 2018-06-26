@@ -5,7 +5,7 @@ from helpers.restplus import api
 from flask_restplus import Resource
 from helpers.serializers import movie
 from flask import request, abort
-from settings import APPKEY
+from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE
 from tasks.tasks import *
 from database.db_functions import *
 from flask import Response
@@ -46,14 +46,14 @@ class BotRequest(Resource):
         # If parent exists, the parentId and the parentResponse get set
         id = create_entry(json.dumps(data), parentResponse, parentId)
         # Check if response has to be calculated else return response
-        if parentResponse == None:
+        if parentResponse is None:
 
             CalculateAndSaveResponse.delay(id, json.dumps(data))
 
             # Check if response is calculated after 5 seconds
             # If true, return calculated response
             # else return id
-            time.sleep(10)
+            time.sleep(SECONDS_TO_WAIT_FOR_RESPONSE)
             modelObject = get_entry(id)
 
             if modelObject.response == None:
