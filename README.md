@@ -27,3 +27,6 @@
     - e.g. queue = "games"
 5. In the file docker-compose.yml add the new queue to the celery command.
     - e.g. celery -A tasks.tasks worker -Q movies, games -B -l INFO
+
+## Schematic API-flow
+![alt text](https://github.com/mstr92/rbz_api/api_flow.JPG)
