@@ -1,6 +1,7 @@
 ##################################################################
 # DATABASE
 ##################################################################
+import time
 from database import db
 from database.model import DataModel
 from datetime import datetime, timedelta
@@ -43,21 +44,11 @@ def get_entry(id):
 def set_response(id, retval, retry):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        connection = engine.connect()
-        trans = connection.begin()
-        print("Save Response to Entry with ID: " + str(id))
-        connection.execute('UPDATE rbz_api SET Response = "' + retval + '" WHERE Id = "' + str(id) + '";')
-        print("SAVED Response to Entry with ID: " + str(id))
-        trans.commit()
-        connection.close()
+        engine.execute('UPDATE rbz_api SET Response = "' + retval + '" WHERE Id = "' + str(id) + '";')
     except exc.SQLAlchemyError:
-
         print("No entry in Database with ID: " + str(id))
         if retry:
             set_response(id, retval, False)
-
-
-
 
 
 def create_table_if_not_exists():
