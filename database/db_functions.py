@@ -44,7 +44,8 @@ def get_entry(id):
 def set_response(id, retval, retry):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        engine.execute('UPDATE rbz_api SET Response = "' + retval + '" WHERE Id = "' + str(id) + '";')
+        engine.execute("UPDATE rbz_api SET Response = %s WHERE Id = %s", (retval, str(id)))
+
     except exc.SQLAlchemyError:
         print("No entry in Database with ID: " + str(id))
         if retry:
