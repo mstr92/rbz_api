@@ -43,7 +43,7 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context='adhoc')
+    app.run(host='129.27.153.16', port=5000, debug=True, ssl_context='adhoc')
 
 
 if __name__ == "__main__":
