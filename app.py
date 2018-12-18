@@ -38,7 +38,7 @@ def initialize_app(flask_app):
     api.init_app(blueprint)
     api.add_namespace(namespace_movie)
     flask_app.register_blueprint(blueprint)
-    create_table_if_not_exists()
+    #create_table_if_not_exists()
 
 
 def main():
