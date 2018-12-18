@@ -20,7 +20,7 @@ rabbitmq:
 api:
   build: .
   ports:
-    - "5000:5000"
+    - "6996:6996"
   volumes:
     - .:/api
   links:
