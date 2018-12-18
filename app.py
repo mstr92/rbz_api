@@ -38,12 +38,13 @@ def initialize_app(flask_app):
     api.init_app(blueprint)
     api.add_namespace(namespace_movie)
     flask_app.register_blueprint(blueprint)
-    #create_table_if_not_exists()
+    create_table_if_not_exists()
 
 
 def main():
     initialize_app(app)
-    app.run(host='129.27.153.16', port=5000, ssl_context='adhoc')
+    #app.run(host='129.27.153.16', port=5000, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
 
 
 if __name__ == "__main__":
