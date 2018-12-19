@@ -10,7 +10,7 @@ from database.db_functions import create_table_if_not_exists
 
 
 def configure_app(flask_app):
-    flask_app.config['SERVER_NAME'] = FLASK_SERVER_NAME
+    #flask_app.config['SERVER_NAME'] = FLASK_SERVER_NAME
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
     flask_app.config['SWAGGER_UI_DOC_EXPANSION'] = RESTPLUS_SWAGGER_UI_DOC_EXPANSION
