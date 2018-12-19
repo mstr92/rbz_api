@@ -20,7 +20,7 @@ rabbitmq:
 api:
   build: .
   ports:
-    - "0.0.0.0:8008:5000/tcp"
+    - "8008:5000/tcp"
   volumes:
     - .:/api
   links:
