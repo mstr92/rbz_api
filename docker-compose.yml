@@ -20,7 +20,10 @@ rabbitmq:
 api:
   build: .
   ports:
-    - "8008:5000"
+  - target: 5000
+    published: 8008
+    protocol: tcp
+    mode: host
   volumes:
     - .:/api
   links:
