@@ -101,4 +101,4 @@ class BotResponse(Resource):
     @api.response(404, 'Object not found.')
     @api.response(405, 'Calculation of response not finished.')
     def get(self):
-        return None, 201
+        return "test", 201
