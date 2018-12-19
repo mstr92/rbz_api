@@ -94,4 +94,11 @@ class BotResponse(Resource):
             return modelObject.response, 201
 
 
+@ns.route('/test')
+class BotResponse(Resource):
 
+    @api.response(201, 'Object found, calculation finished')
+    @api.response(404, 'Object not found.')
+    @api.response(405, 'Calculation of response not finished.')
+    def get(self):
+        return None, 201
