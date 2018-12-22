@@ -1,6 +1,6 @@
 # Flask settings
-# FLASK_SERVER_NAME = 'localhost:8008'
-FLASK_SERVER_NAME = '129.27.153.16:8008'
+FLASK_SERVER_NAME = 'localhost:5000'
+#FLASK_SERVER_NAME = '129.27.153.16:8008'
 FLASK_DEBUG = True  # Do not use debug mode in production
 
 # Flask-Restplus settings
@@ -10,7 +10,7 @@ RESTPLUS_MASK_SWAGGER = False
 RESTPLUS_ERROR_404_HELP = False
 
 # SQLAlchemy settings
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@db/rbz_api'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost/imdb_test'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 APPKEY = 'ABCD1234'

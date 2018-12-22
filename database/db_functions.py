@@ -3,7 +3,7 @@
 ##################################################################
 import time
 from database import db
-from database.model import DataModel
+from database.model import DataModel, TestModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String,TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
@@ -29,6 +29,20 @@ def check_if_entry_exists(data):
 
     except exc.SQLAlchemyError:
         print("No entry in Database")
+        return None, None
+
+def checkTest():
+    try:
+        db.session.commit()
+        d = TestModel.query.filter(TestModel.id == 1).one()
+        if len(d) == 0:
+            return "False"
+        else:
+            return "True"
+
+    except exc.SQLAlchemyError as ex:
+        print("No entry in Database")
+        print(ex)
         return None, None
 
 

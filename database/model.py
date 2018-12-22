@@ -12,3 +12,10 @@ class DataModel(db.Model):
         self.request = request
         self.response = response
         self.parentId = parentId
+
+class TestModel(db.Model):
+    __tablename__ = "genre"
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    genrename = db.Column('genrename', db.String)
+
+        
