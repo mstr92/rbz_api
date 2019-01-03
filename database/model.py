@@ -25,7 +25,7 @@ class GenreModel(db.Model):
     def __init__(self, genrename):
         self.genrename = genrename
 
-    genre = Table('genre', MetaData(),
+    genre = db.Table('genre', MetaData(),
                   db.Column('id', Integer, primary_key=True),
                   db.Column('genrename', db.String)
                   )
