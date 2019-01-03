@@ -5,10 +5,10 @@ db:
   restart: always
   hostname: "db"
   environment:
-     - MYSQL_ROOT_PASSWORD=LEwxPcn1
-     - MYSQL_USER=hfuchs
-     - MYSQL_PASS=LEwxPcn1
-     - MYSQL_DATABASE=hfuchs
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_USER=rbz_api_user
+     - MYSQL_PASS=rbz_api_pw
+     - MYSQL_DATABASE=rbz_api
   volumes:
     - ./mysql:/var/lib/mysql
 rabbitmq:
