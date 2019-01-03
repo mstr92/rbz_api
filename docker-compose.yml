@@ -5,7 +5,7 @@ db:
   restart: always
   hostname: "db"
   environment:
-     - MYSQL_ROOT_PASSWORD=hfuchs
+     - MYSQL_ROOT_PASSWORD=LEwxPcn1
      - MYSQL_USER=hfuchs
      - MYSQL_PASS=LEwxPcn1
      - MYSQL_DATABASE=hfuchs
