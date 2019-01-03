@@ -3,7 +3,7 @@
 ##################################################################
 import time
 from database import db
-from database.model import DataModel, GenreModel
+from database.model import DataModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
@@ -43,7 +43,7 @@ def get_entry(id):
 def get_genre(id):
     try:
         db.session.commit()
-        return "test" # GenreModel.query.filter(GenreModel.id == id).one()
+        return engine.execute("SELECT genre WHERE id = %s", (str(id)))
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
