@@ -10,7 +10,7 @@ RESTPLUS_MASK_SWAGGER = False
 RESTPLUS_ERROR_404_HELP = False
 
 # SQLAlchemy settings
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root/rbz_io'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@db/rbz_io'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 APPKEY = 'ABCD1234'
