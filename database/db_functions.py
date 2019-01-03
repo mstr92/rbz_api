@@ -40,10 +40,10 @@ def get_entry(id):
         print("No entry in Database")
         return None
 
-def get_genre(id):
+def get_genre(text):
     try:
         db.session.commit()
-        return GenreModel.query.filter(GenreModel.id == id).one()
+        return GenreModel.query.filter(GenreModel.genrename.like("%" + text + "%")).all()
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
