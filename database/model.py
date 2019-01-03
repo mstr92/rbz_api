@@ -15,7 +15,8 @@ class DataModel(db.Model):
 
 
 class GenreModel(db.Model):
-    __tablename__ = "genre"
+    __table__ = db.Model.metadata.tables['genre']
+
     id = db.Column('id', db.Integer, primary_key=True)
     genrename = db.Column('genrename', db.String)
 
