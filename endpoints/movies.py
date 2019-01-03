@@ -109,7 +109,7 @@ class BotTest(Resource):
 
         # Check if object response is set
         if modelObject == []:
-            return "No Genre detected", 404
+            return  None, 404
         else:
             return modelObject, 201
 
