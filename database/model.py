@@ -16,7 +16,7 @@ class DataModel(db.Model):
 
 class GenreModel(db.Model):
     __tablename__ = "genre"
-    id = db.Column('id', db.Integer)
+    id = db.Column('id', db.Integer, primary_key=True)
     genrename = db.Column('genrename', db.String)
 
     def __init__(self, genrename):
