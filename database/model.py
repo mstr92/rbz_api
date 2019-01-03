@@ -29,4 +29,4 @@ class GenreModel(db.Model):
                   db.Column('id', db.Integer, primary_key=True),
                   db.Column('genrename', db.String)
                   )
-    mapper(GenreModel, genre)
+mapper(GenreModel, genre)
