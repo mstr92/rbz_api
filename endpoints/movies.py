@@ -107,7 +107,7 @@ class BotTest(Resource):
         # Get Object from database with id
         modelObject = get_genre(text)
 
-        print(json.dumps([(dict(row.items())) for row in result]))
+        print(json.dumps([(dict(row.items())) for row in modelObject]))
         # Check if object response is set
         # if modelObject == None:
         #     return  None, 404
