@@ -95,7 +95,7 @@ class BotResponse(Resource):
 
 
 @ns.route('/test/<int:id>')
-class BotResponse(Resource):
+class BotTest(Resource):
 
     @api.response(201, 'Object found, calculation finished')
     @api.response(404, 'Object not found.')
