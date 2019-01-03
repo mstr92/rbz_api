@@ -108,7 +108,7 @@ class BotTest(Resource):
         # Get Object from database with id
         modelObject = get_genre(1)
         print(modelObject)
-        return modelObject
+        return "lalal"
         # # Check if object in database
         # if modelObject == None:
         #     return None, 404
