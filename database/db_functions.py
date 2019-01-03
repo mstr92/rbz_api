@@ -45,7 +45,7 @@ def get_genre(text):
         search_query = "%" + str(text) + "%"
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         result = engine.execute("SELECT genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5", search_query)
-        return result
+        return ""
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
