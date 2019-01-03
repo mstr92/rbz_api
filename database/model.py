@@ -1,4 +1,6 @@
 from database import db
+from sqlalchemy.orm import mapper
+from sqlalchemy import MetaData
 
 class DataModel(db.Model):
     __tablename__ = "rbz_api"
@@ -15,10 +17,16 @@ class DataModel(db.Model):
 
 
 class GenreModel(db.Model):
-    __tablename__ = 'genre'
+   # __tablename__ = 'genre'
 
     id = db.Column('id', db.Integer, primary_key=True)
     genrename = db.Column('genrename', db.String)
 
     def __init__(self, genrename):
         self.genrename = genrename
+
+    genre = Table('genre', MetaData(),
+                  db.Column('id', Integer, primary_key=True),
+                  db.Column('genrename', db.String)
+                  )
+    mapper(GenreModel, genre)
