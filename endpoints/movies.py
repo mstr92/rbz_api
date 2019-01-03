@@ -94,21 +94,19 @@ class BotResponse(Resource):
             return modelObject.response, 201
 
 
-@ns.route('/test')
+@ns.route('/genre/<int:id>')
 class BotTest(Resource):
 
     @api.response(201, 'Object found, calculation finished')
     @api.response(404, 'Object not found.')
     @api.response(405, 'Calculation of response not finished.')
-    def get(self):
+    def get(self, id):
         """
         Return a response with given ID.
         """
 
         # Get Object from database with id
-        modelObject = get_genre(1)
-        print(modelObject.genrename)
-        print(modelObject.id)
+        modelObject = get_genre(id)
 
         # Check if object in database
         if modelObject == None:
