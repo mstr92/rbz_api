@@ -111,5 +111,5 @@ class BotTest(Resource):
         # if modelObject == None:
         #     return  None, 404
         # else:
-        return modelObject, 201
+        return "", 201
 
