@@ -94,13 +94,13 @@ class BotResponse(Resource):
             return modelObject.response, 201
 
 
-@ns.route('/test/<string:id>')
+@ns.route('/test')
 class BotTest(Resource):
 
     @api.response(201, 'Object found, calculation finished')
     @api.response(404, 'Object not found.')
     @api.response(405, 'Calculation of response not finished.')
-    def get(self, id):
+    def get(self):
         """
         Return a response with given ID.
         """
