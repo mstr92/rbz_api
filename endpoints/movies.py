@@ -108,8 +108,8 @@ class BotTest(Resource):
         modelObject = get_genre(text)
         console.log(modelObject)
         # Check if object response is set
-        if modelObject == None:
-            return  None, 404
-        else:
-            return modelObject, 201
+        # if modelObject == None:
+        #     return  None, 404
+        # else:
+        return modelObject, 201
 
