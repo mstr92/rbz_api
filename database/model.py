@@ -25,8 +25,8 @@ class GenreModel(db.Model):
     def __init__(self, genrename):
         self.genrename = genrename
 
-    genre = db.Table('genre', MetaData(),
-                  db.Column('id', db.Integer, primary_key=True),
-                  db.Column('genrename', db.String)
-                  )
+genre = db.Table('genre', MetaData(),
+            db.Column('id', db.Integer, primary_key=True),
+            db.Column('genrename', db.String)
+        )
 mapper(GenreModel, genre)
