@@ -26,7 +26,7 @@ class GenreModel(db.Model):
         self.genrename = genrename
 
     genre = db.Table('genre', MetaData(),
-                  db.Column('id', Integer, primary_key=True),
+                  db.Column('id', db.Integer, primary_key=True),
                   db.Column('genrename', db.String)
                   )
     mapper(GenreModel, genre)
