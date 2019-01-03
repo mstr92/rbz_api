@@ -106,7 +106,7 @@ class BotTest(Resource):
         """
 
         # Get Object from database with id
-        modelObject = get_genre(id)
+        modelObject = get_genre(1)
 
         return "test"
 
