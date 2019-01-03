@@ -50,7 +50,7 @@ def get_genre(text):
         result = engine.execute("SELECT genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5", search_query)
         for row in result:
             genres.append(row['genrename'])
-        console.log(genres)
+        print(genres)
         return genres
 
         #return GenreModel.query.filter(GenreModel.genrename.like("%" + text + "%")).all()
