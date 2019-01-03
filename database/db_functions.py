@@ -43,7 +43,8 @@ def get_entry(id):
 def get_genre(id):
     try:
         db.session.commit()
-        return GenreModel.query.filter(GenreModel.id == id).one()
+        #return GenreModel.query.filter(GenreModel.id == id).one()
+        return engine.execute("SELECT id, genrename FROM genre WHERE id = 1")
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
