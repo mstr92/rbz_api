@@ -113,7 +113,7 @@ class BotResponse(Resource):
 
         # Check if object response is set
         if modelObject.genrename == None:
-            return "No Genre dedected", 405
+            return "No Genre detected", 405
         else:
             return modelObject.genrename, 201
 
