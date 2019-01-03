@@ -108,9 +108,9 @@ class BotTest(Resource):
         modelObject = get_genre(text)
 
         print(json.dumps([dict(row) for row in modelObject]))
-        # Check if object response is set
+        # #Check if object response is set
         # if modelObject == None:
         #     return  None, 404
         # else:
-        return "", 201
+        return json.dumps([dict(row) for row in modelObject]), 201
 
