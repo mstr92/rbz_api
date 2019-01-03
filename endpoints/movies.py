@@ -99,7 +99,6 @@ class BotTest(Resource):
 
     @api.response(201, 'Object found, calculation finished')
     @api.response(404, 'Object not found.')
-    @api.response(405, 'Calculation of response not finished.')
     def get(self, text):
         """
         Return a response with given ID.
@@ -107,14 +106,10 @@ class BotTest(Resource):
 
         # Get Object from database with id
         modelObject = get_genre(text)
-        print(modelObject)
-        # # Check if object in database
-        # if modelObject == None:
-        #     return None, 404
-        #
-        # # Check if object response is set
-        # if modelObject.genrename == None:
-        #     return "No Genre detected", 405
-        # else:
-        #     return modelObject.genrename, 201
-        # #
+
+        # Check if object response is set
+        if modelObject == []:
+            return "No Genre detected", 404
+        else:
+            return modelObject, 201
+
