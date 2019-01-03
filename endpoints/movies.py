@@ -104,10 +104,12 @@ class BotTest(Resource):
         """
         Return a response with given ID.
         """
+
+        # Get Object from database with id
+        modelObject = get_genre(id)
+
         return "test"
-        # # Get Object from database with id
-        # modelObject = get_genre(id)
-        #
+
         # # Check if object in database
         # if modelObject == None:
         #     return None, 404
