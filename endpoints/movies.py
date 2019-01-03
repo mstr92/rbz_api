@@ -104,16 +104,17 @@ class BotTest(Resource):
         """
         Return a response with given ID.
         """
-        # Get Object from database with id
-        modelObject = get_genre(id)
-
-        # Check if object in database
-        if modelObject == None:
-            return None, 404
-
-        # Check if object response is set
-        if modelObject.genrename == None:
-            return "No Genre detected", 405
-        else:
-            return modelObject.genrename, 201
+        return "test"
+        # # Get Object from database with id
+        # modelObject = get_genre(id)
+        #
+        # # Check if object in database
+        # if modelObject == None:
+        #     return None, 404
+        #
+        # # Check if object response is set
+        # if modelObject.genrename == None:
+        #     return "No Genre detected", 405
+        # else:
+        #     return modelObject.genrename, 201
 
