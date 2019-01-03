@@ -42,12 +42,9 @@ def get_entry(id):
 
 def get_genre(text):
     try:
-        genres = []
         search_query = "%" + str(text) + "%"
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         result = engine.execute("SELECT genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5", search_query)
-        for row in result:
-            genres.append(row['genrename'])
         return result
 
     except exc.SQLAlchemyError:
