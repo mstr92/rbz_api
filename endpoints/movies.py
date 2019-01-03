@@ -98,19 +98,12 @@ class BotResponse(Resource):
 class BotTest(Resource):
 
     @api.response(201, 'Object found, calculation finished')
-    @api.response(404, 'Object not found.')
     def get(self, text):
         """
         Return a response with given ID.
         """
-
         # Get Object from database with id
         modelObject = get_genre(text)
         jsonResult  = json.dumps([dict(row) for row in modelObject])
-
-        # #Check if object response is set
-        if jsonResult == '[]':
-            return  None, 404
-        else:
-            return jsonResult, 201
+        return jsonResult, 201
 
