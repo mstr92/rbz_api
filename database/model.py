@@ -16,8 +16,8 @@ class DataModel(db.Model):
 class DeviceModel(db.Model):
     __tablename__ = "device"
     uuid = db.Column('uuid', db.String, primary_key=True)
-    user = db.Column('user', db.String)
+    user_id = db.Column('user_id', db.String)
 
-    def __init__(self, uuid, user):
+    def __init__(self, uuid, user_id):
         self.uuid = uuid
-        self.user = user
+        self.user_id = user_id
