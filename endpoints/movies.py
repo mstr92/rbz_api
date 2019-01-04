@@ -5,7 +5,7 @@ import requests
 from helpers.restplus import api
 from flask_restplus import Resource
 from helpers.serializers import movie
-from flask import request, abort, jsonify, request
+from flask import request, abort, jsonify
 from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE
 from tasks.tasks import *
 from database.db_functions import *
