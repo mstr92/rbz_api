@@ -21,12 +21,6 @@ movie = api.model('Movies', {
     # 'approach': fields.Integer(description='Total number of results'),
 })
 
-user = api.model('User', {
-    'username': fields.String(description='Username'),
-    'email': fields.String(description='Email adress'),
-    'password': fields.String(description='Password')
-})
-
 backup = api.model('Backup', {
     'user_id': fields.Integer(description='UserID'),
     'history': fields.String(description='JSON string with history movie objects'),

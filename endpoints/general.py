@@ -4,7 +4,7 @@ import requests
 
 from helpers.restplus import api
 from flask_restplus import Resource
-from helpers.serializers import movie, user, backup
+from helpers.serializers import movie, backup
 from flask import request, abort, jsonify
 from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE, API_KEY_TMDB
 from tasks.tasks import *
@@ -44,19 +44,22 @@ class DatabaseUUID(Resource):
 
 
 
-@ns.route('/user')
+@ns.route('/user/')
 class DatabaseUser(Resource):
 
-    @api.expect(user)
+
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
     def post(self):
         """
         Insert new User
         """
+        username = request.args.get('username')
+        email = request.args.get('email')
+        password = request.args.get('password')
         data = request.json
 
-        modelObject = set_user(data['username'], data['email'], data['password'])
+        modelObject = set_user(username, email, password)
         if modelObject:
             return 201
         else:
