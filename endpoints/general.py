@@ -64,7 +64,6 @@ class DatabaseUser(Resource):
 
 
 @ns.route('/backup')
-@ns.route('/backup/<int:user_id>')
 class DatabaseUser(Resource):
 
     @api.expect(backup)
@@ -82,8 +81,27 @@ class DatabaseUser(Resource):
         else:
             return 401
 
+
+
+@ns.route('/backup/history/<int:user_id>')
+class DatabaseUser(Resource):
     @api.response(201, 'Entry exists')
     def get(self, user_id):
         modelObject = get_backup(user_id)
-        print(modelObject)
         return modelObject.history, 201
+
+
+@ns.route('/backup/favourite/<int:user_id>')
+class DatabaseUser(Resource):
+    @api.response(201, 'Entry exists')
+    def get(self, user_id):
+        modelObject = get_backup(user_id)
+        return modelObject.favourite, 201
+
+
+@ns.route('/backup/rating/<int:user_id>')
+class DatabaseUser(Resource):
+    @api.response(201, 'Entry exists')
+    def get(self, user_id):
+        modelObject = get_backup(user_id)
+        return modelObject.rating, 201
