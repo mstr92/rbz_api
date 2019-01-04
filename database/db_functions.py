@@ -4,7 +4,7 @@
 import time
 import logging
 from database import db
-from database.model import DataModel
+from database.model import DataModel, DeviceModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
@@ -85,8 +85,10 @@ def get_person(text):
 
 def set_uuid(uuid):
     try:
-        engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        engine.execute("INSERT INTO device(uuid) VALUES %s", uuid)
+        post = DeviceModel(uuid, "")
+        db.session.add(post)
+        db.session.flush()
+        db.session.commit()
         return True
 
     except exc.SQLAlchemyError as e:

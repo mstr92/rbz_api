@@ -12,3 +12,12 @@ class DataModel(db.Model):
         self.request = request
         self.response = response
         self.parentId = parentId
+
+class DeviceModel(db.Model):
+    __tablename__ = "device"
+    uuid = db.Column('uuid', db.String, primary_key=True)
+    user = db.Column('Request', db.String)
+
+    def __init__(self, uuid, user):
+        self.uuid = uuid
+        self.user = user
