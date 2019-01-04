@@ -55,7 +55,8 @@ class DatabaseUUID(Resource):
 
 
         print(data)
-        print(data.username)
+
+        print(data.password)
        # modelObject = set_uuid(uuid)
        # print(modelObject)
         return "", 201

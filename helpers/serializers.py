@@ -22,9 +22,9 @@ movie = api.model('Movies', {
 })
 
 user = api.model('User', {
-    username: fields.String(description='Username'),
-    email: fields.String(description='Email adress'),
-    password: fields.String(description='Password')
+    'username': fields.String(description='Username'),
+    'email': fields.String(description='Email adress'),
+    'password': fields.String(description='Password')
 })
 
 
