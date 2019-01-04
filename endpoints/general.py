@@ -44,7 +44,7 @@ class DatabaseUUID(Resource):
 
 
 
-@ns.route('/user/')
+@ns.route('/user')
 class DatabaseUser(Resource):
 
 
