@@ -1,5 +1,6 @@
 import logging
 import json
+import requests
 
 from helpers.restplus import api
 from flask_restplus import Resource
@@ -144,7 +145,7 @@ class DatabasePerson(Resource):
         API_KEY = '4011e631409cb9aad814f2e2a03df031'
         LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY + '&external_source=imdb_id'
         print(LINK)
-        r = requests.url(LINK)
+        r = requests.get(LINK)
         print(r)
         # data = r.json()
         # return jsonify(data),201

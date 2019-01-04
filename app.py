@@ -6,7 +6,6 @@ from helpers.restplus import api
 from settings import *
 from endpoints.movies import ns as namespace_movie
 from database import db
-from database.db_functions import create_table_if_not_exists
 
 
 def configure_app(flask_app):
@@ -38,7 +37,6 @@ def initialize_app(flask_app):
     api.init_app(blueprint)
     api.add_namespace(namespace_movie)
     flask_app.register_blueprint(blueprint)
-   # create_table_if_not_exists()
 
 
 def main():
