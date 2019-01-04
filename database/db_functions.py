@@ -97,9 +97,9 @@ def set_uuid(uuid):
         return False
 
 
-def set_user():
+def set_user(username, email, password):
     try:
-        post = UserModel(uuid, None)
+        post = UserModel(username,email,password)
         db.session.add(post)
         db.session.flush()
         db.session.commit()

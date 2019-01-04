@@ -43,21 +43,19 @@ class DatabaseUUID(Resource):
 
 
 @ns.route('/user')
-class DatabaseUUID(Resource):
+class DatabaseUser(Resource):
 
     @api.expect(user)
-    @api.response(201, 'Object found')
+    @api.response(201, 'User registered in database')
+    @api.response(401, 'Error: User not registered!')
     def post(self):
         """
         Return a response with given ID.
         """
         data = request.json
-        data1 = json.dumps(data)
 
-        print(data)
-        print(data1)
-
-        print(data['username'])
-       # modelObject = set_uuid(uuid)
-       # print(modelObject)
-        return "", 201
+        modelObject = set_user(data['username'], data['email'], data['password'])
+        if modelObject:
+            return 201
+        else:
+            return 401
