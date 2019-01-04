@@ -85,4 +85,5 @@ class DatabaseUser(Resource):
     @api.response(201, 'Entry exists')
     def get(self, user_id):
         modelObject = get_backup(user_id)
-        return modelObject, 201
+        print(json.dumps([dict(row) for row in modelObject]))
+        return 201
