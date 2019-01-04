@@ -89,8 +89,9 @@ def set_uuid(uuid):
         engine.execute("INSERT INTO device VALUES (%s, '')", uuid)
         return True
 
-    except exc.SQLAlchemyError:
+    except exc.SQLAlchemyError as e:
         print("No entry in Database")
+        print(e)
         return False
 
 
