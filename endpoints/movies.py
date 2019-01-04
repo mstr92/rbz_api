@@ -137,13 +137,13 @@ class DatabasePerson(Resource):
 class DatabasePerson(Resource):
 
     @api.response(201, 'Object found')
-    def get(self, imdb_id):
+    def test(self, imdb_id):
         """
         Return a response with given ID.
         """
         API_KEY = '4011e631409cb9aad814f2e2a03df031'
         LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY + '&external_source=imdb_id'
-        r = request.url(LINK)
+        r = requests.url(LINK)
         print(r)
         # data = r.json()
         # return jsonify(data),201
