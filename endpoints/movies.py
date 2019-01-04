@@ -6,7 +6,7 @@ from helpers.restplus import api
 from flask_restplus import Resource
 from helpers.serializers import movie
 from flask import request, abort, jsonify
-from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE
+from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE, API_KEY_TMDB
 from tasks.tasks import *
 from database.db_functions import *
 from flask import Response
@@ -142,15 +142,6 @@ class DatabasePerson(Resource):
         """
         Return a response with given ID.
         """
-        API_KEY = '4011e631409cb9aad814f2e2a03df031'
-        LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY + '&external_source=imdb_id'
-        print(LINK)
+        LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY_TMDB + '&external_source=imdb_id'
         r = requests.get(LINK)
-        print(json.loads(r.text))
-       # data = r.json()
         return json.loads(r.text),201
-
-        # Get Object from database with id
-        # modelObject = get_person(text)
-        # jsonResult  = json.dumps([dict(row) for row in modelObject])
-        # return jsonResult, 201
