@@ -123,6 +123,13 @@ def set_backup(user_id, history, rating, favourite):
         print(e)
         return False
 
+def get_backup(user_id):
+    try:
+        db.session.commit()
+        return BackupModel.query.filter(BackupModel.user_id == user_id).one()
+    except exc.SQLAlchemyError:
+        print("No entry in Database")
+        return None
 
 
 def set_response(id, retval, retry):

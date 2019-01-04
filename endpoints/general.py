@@ -64,6 +64,7 @@ class DatabaseUser(Resource):
 
 
 @ns.route('/backup')
+@ns.route('/backup/<int:user_id>')
 class DatabaseUser(Resource):
 
     @api.expect(backup)
@@ -71,7 +72,7 @@ class DatabaseUser(Resource):
     @api.response(401, 'Error: User not registered!')
     def post(self):
         """
-        Insert new User
+        Insert Backup Objects for user
         """
         data = request.json
 
@@ -80,3 +81,9 @@ class DatabaseUser(Resource):
             return 201
         else:
             return 401
+
+    @api.response(201, 'Entry exists')
+    def get(self, user_id):
+        modelObject = get_backup(user_id);
+        print(modelObject)
+        return 201
