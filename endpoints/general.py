@@ -51,8 +51,11 @@ class DatabaseUUID(Resource):
         """
         Return a response with given ID.
         """
-        data = request.json
+        data = json.dumps(request.json)
+
+
         print(data)
+        print(data.username)
        # modelObject = set_uuid(uuid)
        # print(modelObject)
         return "", 201
