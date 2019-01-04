@@ -133,8 +133,13 @@ def get_backup(user_id):
 
 def get_user(username):
     try:
-        db.session.commit()
-        return UserModel.query.filter(UserModel.username == username).one()
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        result = engine.execute(
+            "SELECT id, username, email, password FROM user WHERE username = %s)", username)
+        return result
+
+        # db.session.commit()
+        # return UserModel.query.filter(UserModel.username == username).one()
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None

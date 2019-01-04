@@ -74,11 +74,12 @@ class DatabaseUser(Resource):
         """
         Insert new User
         """
+        modelObject = get_person(text)
+        jsonResult = json.dumps([dict(row) for row in modelObject])
         modelObject = get_user(username)
-        if modelObject != None:
-            return modelObject.password, 201
-        else:
-            return None, 401
+        return jsonResult, 201
+
+
 
 @ns.route('/backup')
 class DatabaseUser(Resource):
