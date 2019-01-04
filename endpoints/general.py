@@ -28,14 +28,14 @@ def require_appkey(view_function):
     return decorated_function
 
 
-@ns.route('/movie/details/<string:uuid>')
+@ns.route('/uuid/<string:uuid>')
 class DatabaseUUID(Resource):
 
     @api.response(201, 'Object found')
-    def get(self, uuid):
+    def post(self, uuid):
         """
         Return a response with given ID.
         """
-        modelObject = get_genre(text)
-        jsonResult = json.dumps([dict(row) for row in modelObject])
-        return jsonResult, 201
+        modelObject = set_uuid(uuid)
+        print(modelObject)
+        return "", 201
