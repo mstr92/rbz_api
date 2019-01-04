@@ -36,6 +36,7 @@ def initialize_app(flask_app):
     blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(blueprint)
     api.add_namespace(namespace_movie)
+    api.add_namespace(namespace_general)
     flask_app.register_blueprint(blueprint)
 
 
