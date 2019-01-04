@@ -7,3 +7,4 @@ mysql-python
 sqlalchemy
 PyMySQL
 pyOpenSSL
+requests
