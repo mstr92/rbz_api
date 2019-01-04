@@ -40,16 +40,47 @@ def get_entry(id):
         print("No entry in Database")
         return None
 
+
 def get_genre(text):
     try:
         search_query = "%" + str(text) + "%"
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        result = engine.execute("SELECT id,genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5", search_query)
+        result = engine.execute(
+            "SELECT id, ttid, title, year FROM movie WHERE LOWER(title) LIKE LOWER(%s) ORDER BY rating_rank DESC LIMIT 5",
+            search_query)
         return result
 
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
+
+
+def get_movie(text):
+    try:
+        search_query = "%" + str(text) + "%"
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        result = engine.execute("SELECT id,genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5",
+                                search_query)
+        return result
+
+    except exc.SQLAlchemyError:
+        print("No entry in Database")
+        return None
+
+
+def get_person(text):
+    try:
+        search_query = "%" + str(text) + "%"
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        result = engine.execute(
+            "SELECT id, first_name, last_name FROM person WHERE CONCAT(LOWER(first_name),  ' ', LOWER(last_name)) LIKE LOWER(%s) OR CONCAT(LOWER(last_name),  ' ', LOWER(first_name)) LIKE LOWER(%s) LIMIT 5",
+            (search_query, search_query))
+        return result
+
+    except exc.SQLAlchemyError:
+        print("No entry in Database")
+        return None
+
 
 def set_response(id, retval, retry):
     try:
@@ -70,6 +101,7 @@ def create_table_if_not_exists():
                       Column('Id', Integer, primary_key=True, autoincrement=True),
                       Column('Request', String(10000)),
                       Column('Response', String(10000)),
-                      Column('AccessTime', TIMESTAMP, nullable=False, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
+                      Column('AccessTime', TIMESTAMP, nullable=False,
+                             server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
                       Column('ParentId', Integer))
         metadata.create_all()
