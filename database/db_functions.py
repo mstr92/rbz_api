@@ -2,6 +2,7 @@
 # DATABASE
 ##################################################################
 import time
+import logging
 from database import db
 from database.model import DataModel
 from datetime import datetime, timedelta
