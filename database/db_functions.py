@@ -110,6 +110,20 @@ def set_user(username, email, password):
         print(e)
         return False
 
+def set_backup(user_id, history, rating, favourite):
+    try:
+        post = BackupModel(user_id,history,rating,favourite)
+        db.session.add(post)
+        db.session.flush()
+        db.session.commit()
+        return True
+
+    except exc.SQLAlchemyError as e:
+        print("No entry in Database")
+        print(e)
+        return False
+
+
 
 def set_response(id, retval, retry):
     try:

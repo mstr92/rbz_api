@@ -101,7 +101,7 @@ class DatabaseGenre(Resource):
     @api.response(201, 'Object found')
     def get(self, text):
         """
-        Return a response with given ID.
+        Return a list of genres corresponding to the given text
         """
         # Get Object from database with id
         modelObject = get_genre(text)
@@ -114,7 +114,7 @@ class DatabaseMovie(Resource):
     @api.response(201, 'Object found')
     def get(self, text):
         """
-        Return a response with given ID.
+        Return a list of movies corresponding to the given text
         """
         # Get Object from database with id
         modelObject = get_movie(text)
@@ -127,7 +127,7 @@ class DatabasePerson(Resource):
     @api.response(201, 'Object found')
     def get(self, text):
         """
-        Return a response with given ID.
+        Return a list of persons corresponding to the given text
         """
         # Get Object from database with id
         modelObject = get_person(text)
@@ -140,7 +140,7 @@ class DatabasePerson(Resource):
     @api.response(201, 'Object found')
     def get(self, imdb_id):
         """
-        Return a response with given ID.
+        Return a movie poster from TheMovieDB with a given IMDB-ID
         """
         LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY_TMDB + '&external_source=imdb_id'
         r = requests.get(LINK)

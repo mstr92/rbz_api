@@ -27,5 +27,12 @@ user = api.model('User', {
     'password': fields.String(description='Password')
 })
 
+backup = api.model('Backup', {
+    'user_id': fields.Integer(description='UserID'),
+    'history': fields.String(description='JSON string with history movie objects'),
+    'rating': fields.String(description='JSON string with rating movie objects'),
+    'favourite': fields.String(description='JSON string with favourite movie objects')
+})
+
 
 
