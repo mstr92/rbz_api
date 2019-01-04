@@ -107,31 +107,31 @@ class DatabaseGenre(Resource):
         jsonResult  = json.dumps([dict(row) for row in modelObject])
         return jsonResult, 201
 
-@ns.route('/movie/<string:text>')
-class DatabaseMovie(Resource):
-
-    @api.response(201, 'Object found, calculation finished')
-    def get(self, text):
-        """
-        Return a response with given ID.
-        """
-        # Get Object from database with id
-        modelObject = get_movie(text)
-        jsonResult  = json.dumps([dict(row) for row in modelObject])
-        return jsonResult, 201
-
-@ns.route('/person/<string:text>')
-class DatabasePerson(Resource):
-
-    @api.response(201, 'Object found, calculation finished')
-    def get(self, text):
-        """
-        Return a response with given ID.
-        """
-        # Get Object from database with id
-        modelObject = get_person(text)
-        jsonResult  = json.dumps([dict(row) for row in modelObject])
-        return jsonResult, 201
+# @ns.route('/movie/<string:text>')
+# class DatabaseMovie(Resource):
+#
+#     @api.response(201, 'Object found, calculation finished')
+#     def get(self, text):
+#         """
+#         Return a response with given ID.
+#         """
+#         # Get Object from database with id
+#         modelObject = get_movie(text)
+#         jsonResult  = json.dumps([dict(row) for row in modelObject])
+#         return jsonResult, 201
+#
+# @ns.route('/person/<string:text>')
+# class DatabasePerson(Resource):
+#
+#     @api.response(201, 'Object found, calculation finished')
+#     def get(self, text):
+#         """
+#         Return a response with given ID.
+#         """
+#         # Get Object from database with id
+#         modelObject = get_person(text)
+#         jsonResult  = json.dumps([dict(row) for row in modelObject])
+#         return jsonResult, 201
 
 @ns.route('/details/<string:imdb_id>')
 class DatabasePerson(Resource):

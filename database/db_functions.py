@@ -54,33 +54,33 @@ def get_genre(text):
         print("No entry in Database")
         return None
 
-
-def get_movie(text):
-    try:
-        search_query = "%" + str(text) + "%"
-        engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        result = engine.execute("SELECT id,genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5",
-                                search_query)
-        return result
-
-    except exc.SQLAlchemyError:
-        print("No entry in Database")
-        return None
-
-
-def get_person(text):
-    try:
-        search_query = "%" + str(text) + "%"
-        engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        result = engine.execute(
-            "SELECT id, first_name, last_name FROM person WHERE CONCAT(LOWER(first_name),  ' ', LOWER(last_name)) LIKE LOWER(%s) OR CONCAT(LOWER(last_name),  ' ', LOWER(first_name)) LIKE LOWER(%s) LIMIT 5",
-            (search_query, search_query))
-        return result
-
-    except exc.SQLAlchemyError:
-        print("No entry in Database")
-        return None
-
+#
+# def get_movie(text):
+#     try:
+#         search_query = "%" + str(text) + "%"
+#         engine = create_engine(SQLALCHEMY_DATABASE_URI)
+#         result = engine.execute("SELECT id,genrename FROM genre WHERE LOWER(genrename) LIKE LOWER(%s) LIMIT 5",
+#                                 search_query)
+#         return result
+#
+#     except exc.SQLAlchemyError:
+#         print("No entry in Database")
+#         return None
+#
+#
+# def get_person(text):
+#     try:
+#         search_query = "%" + str(text) + "%"
+#         engine = create_engine(SQLALCHEMY_DATABASE_URI)
+#         result = engine.execute(
+#             "SELECT id, first_name, last_name FROM person WHERE CONCAT(LOWER(first_name),  ' ', LOWER(last_name)) LIKE LOWER(%s) OR CONCAT(LOWER(last_name),  ' ', LOWER(first_name)) LIKE LOWER(%s) LIMIT 5",
+#             (search_query, search_query))
+#         return result
+#
+#     except exc.SQLAlchemyError:
+#         print("No entry in Database")
+#         return None
+#
 
 def set_response(id, retval, retry):
     try:
