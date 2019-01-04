@@ -131,6 +131,13 @@ def get_backup(user_id):
         print("No entry in Database")
         return None
 
+def get_user(username):
+    try:
+        db.session.commit()
+        return UserModel.query.filter(UserModel.username == username).one()
+    except exc.SQLAlchemyError:
+        print("No entry in Database")
+        return None
 
 def set_response(id, retval, retry):
     try:

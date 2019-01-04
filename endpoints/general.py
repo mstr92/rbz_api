@@ -57,7 +57,6 @@ class DatabaseUser(Resource):
         username = request.args.get('username')
         email = request.args.get('email')
         password = request.args.get('password')
-        data = request.json
 
         modelObject = set_user(username, email, password)
         if modelObject:
@@ -65,6 +64,21 @@ class DatabaseUser(Resource):
         else:
             return 401
 
+@ns.route('/user/<string:username>')
+class DatabaseUser(Resource):
+
+
+    @api.response(201, 'User registered in database')
+    @api.response(401, 'Error: User not registered!')
+    def get(self, username):
+        """
+        Insert new User
+        """
+        modelObject = get_user(username)
+        if modelObject != None:
+            return modelObject.password, 201
+        else:
+            return None, 401
 
 @ns.route('/backup')
 class DatabaseUser(Resource):
