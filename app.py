@@ -5,6 +5,7 @@ from flask import Flask, Blueprint
 from helpers.restplus import api
 from settings import *
 from endpoints.movies import ns as namespace_movie
+from endpoints.general import ns as namespace_general
 from database import db
 
 
