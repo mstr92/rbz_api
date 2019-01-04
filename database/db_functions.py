@@ -135,13 +135,14 @@ def get_user(username):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         result = engine.execute(
-            "SELECT id, username, email, password FROM user WHERE username == %s)", username)
+            "SELECT id, username, email, password FROM user WHERE username = %s)", username)
         return result
 
         # db.session.commit()
         # return UserModel.query.filter(UserModel.username == username).one()
-    except exc.SQLAlchemyError:
+    except exc.SQLAlchemyError as e :
         print("No entry in Database")
+        print(e)
         return None
 
 def set_response(id, retval, retry):
