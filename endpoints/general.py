@@ -74,9 +74,8 @@ class DatabaseUser(Resource):
         """
         Insert new User
         """
-        modelObject = get_person(text)
-        jsonResult = json.dumps([dict(row) for row in modelObject])
         modelObject = get_user(username)
+        jsonResult = json.dumps([dict(row) for row in modelObject])
         return jsonResult, 201
 
 
