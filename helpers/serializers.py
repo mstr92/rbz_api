@@ -21,6 +21,11 @@ movie = api.model('Movies', {
     # 'approach': fields.Integer(description='Total number of results'),
 })
 
+user = api.model('User', {
+    'username': fields.String(description='Username'),
+    'email': fields.String(description='Email adress'),
+    'password': fields.String(description='Password')
+})
 
 
 

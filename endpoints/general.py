@@ -4,7 +4,7 @@ import requests
 
 from helpers.restplus import api
 from flask_restplus import Resource
-from helpers.serializers import movie
+from helpers.serializers import movie, user
 from flask import request, abort, jsonify
 from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE, API_KEY_TMDB
 from tasks.tasks import *
@@ -38,4 +38,21 @@ class DatabaseUUID(Resource):
         """
         modelObject = set_uuid(uuid)
         print(modelObject)
+        return "", 201
+
+
+
+@ns.route('/user')
+class DatabaseUUID(Resource):
+
+    @api.expect(user)
+    @api.response(201, 'Object found')
+    def post(self):
+        """
+        Return a response with given ID.
+        """
+        data = request.json
+        print(data)
+       # modelObject = set_uuid(uuid)
+       # print(modelObject)
         return "", 201

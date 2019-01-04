@@ -4,7 +4,7 @@
 import time
 import logging
 from database import db
-from database.model import DataModel, DeviceModel
+from database.model import DataModel, DeviceModel, UserModel, BackupModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
@@ -97,27 +97,27 @@ def set_uuid(uuid):
         return False
 
 
+def set_user():
+    try:
+        post = UserModel(uuid, None)
+        db.session.add(post)
+        db.session.flush()
+        db.session.commit()
+        return True
+
+    except exc.SQLAlchemyError as e:
+        print("No entry in Database")
+        print(e)
+        return False
+
 
 def set_response(id, retval, retry):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         engine.execute("UPDATE rbz_api SET Response = %s WHERE Id = %s", (retval, str(id)))
 
-    except exc.SQLAlchemyError:
+    except exc.SQLAlchemyError(e):
         print("No entry in Database with ID: " + str(id))
+        print(e)
         if retry:
             set_response(id, retval, False)
-
-
-def create_table_if_not_exists():
-    engine = create_engine(SQLALCHEMY_DATABASE_URI)
-    if not engine.dialect.has_table(engine, "rbz_api"):
-        metadata = MetaData(engine)
-        table = Table('rbz_api', metadata,
-                      Column('Id', Integer, primary_key=True, autoincrement=True),
-                      Column('Request', String(10000)),
-                      Column('Response', String(10000)),
-                      Column('AccessTime', TIMESTAMP, nullable=False,
-                             server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
-                      Column('ParentId', Integer))
-        metadata.create_all()
