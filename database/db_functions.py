@@ -3,7 +3,7 @@
 ##################################################################
 import time
 from database import db
-from database.model import DataModel, GenreModel
+from database.model import DataModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS

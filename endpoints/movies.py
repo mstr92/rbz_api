@@ -97,7 +97,7 @@ class BotResponse(Resource):
 @ns.route('/genre/<string:text>')
 class DatabaseGenre(Resource):
 
-    @api.response(201, 'Object found, calculation finished')
+    @api.response(201, 'Object found')
     def get(self, text):
         """
         Return a response with given ID.
@@ -110,7 +110,7 @@ class DatabaseGenre(Resource):
 @ns.route('/movie/<string:text>')
 class DatabaseMovie(Resource):
 
-    @api.response(201, 'Object found, calculation finished')
+    @api.response(201, 'Object found')
     def get(self, text):
         """
         Return a response with given ID.
@@ -123,7 +123,7 @@ class DatabaseMovie(Resource):
 @ns.route('/person/<string:text>')
 class DatabasePerson(Resource):
 
-    @api.response(201, 'Object found, calculation finished')
+    @api.response(201, 'Object found')
     def get(self, text):
         """
         Return a response with given ID.
@@ -136,14 +136,14 @@ class DatabasePerson(Resource):
 @ns.route('/details/<string:imdb_id>')
 class DatabasePerson(Resource):
 
-    @api.response(201, 'Object found, calculation finished')
+    @api.response(201, 'Object found')
     def get(self, imdb_id):
         """
         Return a response with given ID.
         """
         API_KEY = '4011e631409cb9aad814f2e2a03df031'
         LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY + '&external_source=imdb_id'
-        r = requests.get(LINK)
+        r = request.url(LINK)
         print(r)
         # data = r.json()
         # return jsonify(data),201
