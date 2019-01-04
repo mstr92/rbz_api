@@ -135,7 +135,7 @@ def get_user(username):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         result = engine.execute(
-            "SELECT id, username, email, password FROM user WHERE username = %s)", username)
+            "SELECT id, username, email, password FROM user WHERE username = %s", username)
         return result
 
         # db.session.commit()
