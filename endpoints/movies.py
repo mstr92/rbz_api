@@ -144,9 +144,10 @@ class DatabasePerson(Resource):
         API_KEY = '4011e631409cb9aad814f2e2a03df031'
         LINK = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' + API_KEY + '&external_source=imdb_id'
         r = requests.get(LINK)
-        data = r.json()
-        return jsonify(data)
-
+        print(r)
+        # data = r.json()
+        # return jsonify(data),201
+        return "test", 201
         # Get Object from database with id
         # modelObject = get_person(text)
         # jsonResult  = json.dumps([dict(row) for row in modelObject])
