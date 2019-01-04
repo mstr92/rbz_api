@@ -147,9 +147,9 @@ class DatabasePerson(Resource):
         print(LINK)
         r = requests.get(LINK)
         print(r)
-        # data = r.json()
-        # return jsonify(data),201
-        return "test", 201
+        data = r.json()
+        return jsonify(data),201
+
         # Get Object from database with id
         # modelObject = get_person(text)
         # jsonResult  = json.dumps([dict(row) for row in modelObject])
