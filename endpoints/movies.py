@@ -134,7 +134,7 @@ class DatabasePerson(Resource):
         jsonResult  = json.dumps([dict(row) for row in modelObject])
         return jsonResult, 201
 
-@ns.route('/details/<string:imdb_id>')
+@ns.route('/movie/details/<string:imdb_id>')
 class DatabasePerson(Resource):
 
     @api.response(201, 'Object found')
