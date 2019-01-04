@@ -85,7 +85,7 @@ def get_person(text):
 
 def set_uuid(uuid):
     try:
-        post = DeviceModel(uuid, "")
+        post = DeviceModel(uuid, None)
         db.session.add(post)
         db.session.flush()
         db.session.commit()
