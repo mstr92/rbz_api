@@ -86,7 +86,7 @@ def get_person(text):
 def set_uuid(uuid):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        engine.execute("INSERT INTO device VALUES (%s, '')", uuid)
+        engine.execute("INSERT INTO device(uuid) VALUES %s", uuid)
         return True
 
     except exc.SQLAlchemyError as e:
