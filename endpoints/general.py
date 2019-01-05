@@ -90,7 +90,7 @@ class DatabaseUser(Resource):
         """
         modelObject = check_user_password(username, password)
         if modelObject != None:
-            return "" , modelObject
+            return "" , 201
         else:
             return "", 401
 
