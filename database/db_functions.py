@@ -125,7 +125,6 @@ def set_user(username, email, password):
         if userModel == None:
             cipher_suite = Fernet(CRYPTO_KEY)
             ciphered_password = cipher_suite.encrypt(password.encode())
-
             post = UserModel(username, email, ciphered_password)
             db.session.add(post)
             db.session.flush()
