@@ -152,8 +152,8 @@ def set_user_device_id(username, deviceId):
         else:
             currentIDs = str(userModel.deviceID)
             console.log(currentIDs)
-            splitUUID = userModel.deviceID.split(';')
-            console.log(splitUUID)
+            # splitUUID = userModel.deviceID.split(';')
+            # console.log(splitUUID)
 
         return 201
     except exc.SQLAlchemyError as e:
