@@ -186,7 +186,7 @@ def set_backup(user_id, history, rating, favourite):
 def get_backup(user_id):
     try:
         db.session.commit()
-        return BackupModel.query.filter(BackupModel.user_id == user_id).one()
+        return BackupModel.query.filter(BackupModel.user_id == user_id).first()
     except exc.SQLAlchemyError:
         print("No entry in Database")
-        return None
+        return 401

@@ -74,8 +74,11 @@ class DatabaseUser(Resource):
         Insert new User
         """
         modelObject = get_user(username)
-        jsonResult = json.dumps([dict(row) for row in modelObject])
-        return jsonResult, 201
+        if modelObject != None:
+            jsonResult = json.dumps([dict(row) for row in modelObject])
+            return jsonResult, 201
+        else:
+            return "", 401
 
 
 
@@ -102,7 +105,10 @@ class DatabaseUser(Resource):
     @api.response(201, 'Entry exists')
     def get(self, user_id):
         modelObject = get_backup(user_id)
-        return modelObject.history, 201
+        if modelObject != None:
+            return modelObject.history, 201
+        else:
+            return "", 401
 
 
 @ns.route('/backup/favourite/<int:user_id>')
@@ -110,7 +116,10 @@ class DatabaseUser(Resource):
     @api.response(201, 'Entry exists')
     def get(self, user_id):
         modelObject = get_backup(user_id)
-        return modelObject.favourite, 201
+        if modelObject != None:
+            return modelObject.history, 201
+        else:
+            return "", 401
 
 
 @ns.route('/backup/rating/<int:user_id>')
@@ -118,4 +127,18 @@ class DatabaseUser(Resource):
     @api.response(201, 'Entry exists')
     def get(self, user_id):
         modelObject = get_backup(user_id)
-        return modelObject.rating, 201
+        if modelObject != None:
+            return modelObject.history, 201
+        else:
+            return "", 401
+
+
+@ns.route('/backup/dates/<int:user_id>')
+class DatabaseUser(Resource):
+    @api.response(201, 'Entry exists')
+    def get(self, user_id):
+        modelObject = get_backup(user_id)
+        if modelObject != None:
+            return "{rating_last:"+modelObject.rating_last+",history_last:"+modelObject.history_last+", favourite_last:"+modelObject.favourite_last+"}", 201
+        else:
+            return "", 401
