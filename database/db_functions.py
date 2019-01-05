@@ -111,16 +111,20 @@ def set_uuid(uuid):
 
 def set_user(username, email, password):
     try:
-        post = UserModel(username,email,password)
-        db.session.add(post)
-        db.session.flush()
-        db.session.commit()
-        return True
+        userModel = UserModel.query.filter(UserModel.username == username).first()
+        if userModel == None:
+            post = UserModel(username,email,password)
+            db.session.add(post)
+            db.session.flush()
+            db.session.commit()
+            return 201
+        else:
+            return 410
 
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
         print(e)
-        return False
+        return 401
 
 def get_user(username):
     try:

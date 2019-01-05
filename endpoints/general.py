@@ -47,7 +47,7 @@ class DatabaseUUID(Resource):
 @ns.route('/user')
 class DatabaseUser(Resource):
 
-    @api.expect(user)
+    @api.expect(user, validate=False)
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
     def post(self):
@@ -60,10 +60,8 @@ class DatabaseUser(Resource):
         password = data['password']
 
         modelObject = set_user(username, email, password)
-        if modelObject:
-            return 201
-        else:
-            return 401
+        return modelObject
+
 
 @ns.route('/user/<string:username>')
 class DatabaseUser(Resource):
