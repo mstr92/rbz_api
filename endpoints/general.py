@@ -86,7 +86,7 @@ class DatabaseUser(Resource):
     @api.expect(backup)
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
-    def put(self):
+    def post(self):
         """
         Insert Backup Objects for user
         """
