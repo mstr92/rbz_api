@@ -109,7 +109,7 @@ def set_uuid(uuid):
     try:
         deviceModel = DeviceModel.query.filter(DeviceModel.uuid == uuid).first()
         if deviceModel == None:
-            post = DeviceModel(uuid, None)
+            post = DeviceModel(uuid)
             db.session.add(post)
             db.session.flush()
             db.session.commit()
@@ -129,11 +129,30 @@ def set_user(username, email, password):
         if userModel == None:
             cipher_suite = Fernet(CRYPTO_KEY)
             ciphered_password = cipher_suite.encrypt(password.encode())
-            post = UserModel(username, email, ciphered_password)
+            post = UserModel(username, email, ciphered_password, deviceID)
             db.session.add(post)
             db.session.flush()
             db.session.commit()
             return 201
+        else:
+            return 410
+
+    except exc.SQLAlchemyError as e:
+        print("No entry in Database")
+        print(e)
+        return 401
+
+def set_user_device_id(username, deviceId):
+    try:
+        userModel = UserModel.query.filter(UserModel.username == username).first()
+        if userModel == None:
+            currentId = userModel.deviceID
+            if deviceId in str(currentId):
+                return 411
+            else:
+                userModel.deviceID = currentId + ";" + deviceId
+                db.session.commit()
+                return 201
         else:
             return 410
 

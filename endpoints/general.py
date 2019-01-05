@@ -60,6 +60,24 @@ class DatabaseUser(Resource):
         modelObject = set_user(username, email, password)
         return "", modelObject
 
+@ns.route('/user/deviceId')
+class DatabaseUser(Resource):
+
+    @api.expect(device_user, validate=False)
+    @api.response(201, 'User registered in database')
+    @api.response(401, 'Error: User not registered!')
+    @api.response(410, 'Error: Username already in use!')
+    def post(self):
+        """
+        Insert new User
+        """
+        data = request.json
+        username = data['username']
+        deviceId = data['deviceId']
+
+        modelObject = set_user_device_id(username, deviceId)
+        return "", modelObject
+
 @ns.route('/user/<string:username>')
 class DatabaseUser(Resource):
 

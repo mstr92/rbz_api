@@ -18,11 +18,10 @@ class DataModel(db.Model):
 class DeviceModel(db.Model):
     __tablename__ = "device"
     uuid = db.Column('uuid', db.String, primary_key=True)
-    user_id = db.Column('user_id', db.String)
 
-    def __init__(self, uuid, user_id):
+    def __init__(self, uuid):
         self.uuid = uuid
-        self.user_id = user_id
+
 
 
 class UserModel(db.Model):
@@ -31,11 +30,13 @@ class UserModel(db.Model):
     username = db.Column('username', db.String)
     email = db.Column('email', db.String)
     password = db.Column('password', db.String)
+    deviceID = db.Column('deviceID', db.String)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, deviceID):
         self.username = username
         self.email = email
         self.password = password
+        self.deviceID = deviceID
 
 
 class BackupModel(db.Model):

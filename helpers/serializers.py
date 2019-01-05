@@ -34,5 +34,8 @@ backup = api.model('Backup', {
     'favourite': fields.String(description='JSON string with favourite movie objects')
 })
 
-
+device_user = api.model('Device_User', {
+    'username': fields.String(description='Username'),
+    'deviceId': fields.String(description='deviceId')
+})
 
