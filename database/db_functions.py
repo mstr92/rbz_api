@@ -135,10 +135,18 @@ def get_user(username):
 
 def set_backup(user_id, history, rating, favourite):
     try:
-        print(BackupModel.query.filter(BackupModel.user_id == user_id).first())
-        post = BackupModel(user_id,history,rating,favourite)
-        db.session.add(post)
-        db.session.flush()
+        backupObject = BackupModel.query.filter(BackupModel.user_id == user_id).first()
+        if  BackupObject == None:
+            post = BackupModel(user_id,history,rating,favourite)
+            db.session.add(post)
+            db.session.flush()
+        else:
+            if history != '':
+                backupObject.history = history
+            if rating != '':
+                backupObject.rating = rating
+            if favourite != '':
+                backupObject.favourite = favourite
         db.session.commit()
         return True
 
