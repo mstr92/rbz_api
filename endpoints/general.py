@@ -68,7 +68,6 @@ class DatabaseUser(Resource):
 @ns.route('/user/<string:username>')
 class DatabaseUser(Resource):
 
-
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
     def get(self, username):

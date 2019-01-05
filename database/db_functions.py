@@ -135,6 +135,7 @@ def get_user(username):
 
 def set_backup(user_id, history, rating, favourite):
     try:
+        print(BackupModel.query.filter(BackupModel.user_id == user_id).one())
         post = BackupModel(user_id,history,rating,favourite)
         db.session.add(post)
         db.session.flush()
