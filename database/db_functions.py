@@ -146,12 +146,14 @@ def set_user_device_id(username, deviceId):
     try:
         userModel = UserModel.query.filter(UserModel.username == username).first()
         if userModel == None:
+            currentIDs = userModel.deviceID
+            console.log(currentIDs)
             engine = create_engine(SQLALCHEMY_DATABASE_URI)
             engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
                            (deviceId + ';', username))
         else:
             currentIDs = userModel.deviceID
-            console.log(currentIDs)
+            print(currentIDs)
             # splitUUID = userModel.deviceID.split(';')
             # console.log(splitUUID)
 
