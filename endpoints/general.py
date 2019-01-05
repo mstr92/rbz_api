@@ -78,7 +78,7 @@ class DatabaseUser(Resource):
             test = [dict(row) for row in modelObject]
             print(test)
             jsonResult = json.dumps(test)
-            print(jsonResult.username)
+            print(json.dumps(jsonResult))
             return jsonResult, 201
         else:
             return "", 401
