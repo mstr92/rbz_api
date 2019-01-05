@@ -31,17 +31,14 @@ def require_appkey(view_function):
 @ns.route('/uuid/<string:uuid>')
 class DatabaseUUID(Resource):
 
-    @api.response(201, 'Object found')
+    @api.response(201, 'UUID inserted')
+    @api.response(412, 'UUID already in database')
     def post(self, uuid):
         """
         Insert new Device with given UUID
         """
         modelObject = set_uuid(uuid)
-        if modelObject:
-            return 201
-        else:
-            return 401
-
+        return "", modelObject
 
 
 @ns.route('/user')

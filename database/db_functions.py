@@ -107,16 +107,20 @@ def get_person(text):
 ###################################################################################
 def set_uuid(uuid):
     try:
-        post = DeviceModel(uuid, None)
-        db.session.add(post)
-        db.session.flush()
-        db.session.commit()
-        return True
+        deviceModel = DeviceModel.query.filter(DeviceModel.uuid == uuid).first()
+        if deviceModel == None:
+            post = DeviceModel(uuid, None)
+            db.session.add(post)
+            db.session.flush()
+            db.session.commit()
+            return 201
+        else:
+            return 412
 
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
         print(e)
-        return False
+        return 401
 
 
 def set_user(username, email, password):
