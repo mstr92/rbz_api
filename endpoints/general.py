@@ -84,13 +84,14 @@ class DatabaseUser(Resource):
 class DatabaseUser(Resource):
     @api.response(201, 'Password correct!')
     @api.response(410, 'Password incorrect!')
+    @api.response(411, 'User does not exist')
     def get(self, username, password):
         """
         Check Password
         """
         modelObject = check_user_password(username, password)
         if modelObject != None:
-            return "" , 201
+            return "" , modelObject
         else:
             return "", 401
 
