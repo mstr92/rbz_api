@@ -156,7 +156,7 @@ def get_user(id):
         db.session.commit()
         userObject = UserModel.query.filter(UserModel.id == id).first()
         cipher_suite = Fernet(CRYPTO_KEY)
-        print(cipher_suite.decrypt(userObject.password))
+        print(cipher_suite.decrypt(userObject.password.encode()))
         return "adfa"
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
