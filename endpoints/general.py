@@ -4,7 +4,7 @@ import requests
 
 from helpers.restplus import api
 from flask_restplus import Resource
-from helpers.serializers import movie, backup, user, device_user
+from helpers.serializers import movie, backup, user, device_user,user_password
 from flask import request, abort, jsonify
 from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE, API_KEY_TMDB
 from tasks.tasks import *
@@ -95,15 +95,20 @@ class DatabaseUser(Resource):
             return "", 401
 
 
-@ns.route('/password/<string:username>/<string:password>')
+@ns.route('/password')
 class DatabaseUser(Resource):
+    @api.expect(user_password, validate=False)
     @api.response(201, 'Password correct!')
     @api.response(410, 'Password incorrect!')
     @api.response(411, 'User does not exist')
-    def get(self, username, password):
+    def get(self):
         """
         Check Password
         """
+        data = request.json
+        username = data['username']
+        password = data['password']
+
         modelObject = check_user_password(username, password)
         if modelObject != None:
             return "" , modelObject
