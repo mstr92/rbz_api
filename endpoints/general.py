@@ -60,7 +60,7 @@ class DatabaseUser(Resource):
         password = data['password']
 
         modelObject = set_user(username, email, password)
-        return modelObject
+        return "", modelObject
 
 
 @ns.route('/user/<string:username>')
