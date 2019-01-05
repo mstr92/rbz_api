@@ -83,7 +83,7 @@ class DatabaseUser(Resource):
 @ns.route('/backup')
 class DatabaseUser(Resource):
 
-    @api.expect(backup)
+    @api.expect(backup, validate=False)
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
     def post(self):
