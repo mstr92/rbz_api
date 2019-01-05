@@ -8,15 +8,15 @@ from database.model import DataModel, DeviceModel, UserModel, BackupModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
-
-
+###################################################################################
+# API - Functions
+###################################################################################
 def create_entry(request, response, parentId):
     post = DataModel(request, response, parentId)
     db.session.add(post)
     db.session.flush()
     db.session.commit()
     return post.id
-
 
 def check_if_entry_exists(data):
     try:
@@ -32,7 +32,6 @@ def check_if_entry_exists(data):
         print("No entry in Database")
         return None, None
 
-
 def get_entry(id):
     try:
         db.session.commit()
@@ -41,7 +40,20 @@ def get_entry(id):
         print("No entry in Database")
         return None
 
+def set_response(id, retval, retry):
+    try:
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        engine.execute("UPDATE rbz_api SET Response = %s WHERE Id = %s", (retval, str(id)))
 
+    except exc.SQLAlchemyError(e):
+        print("No entry in Database with ID: " + str(id))
+        print(e)
+        if retry:
+            set_response(id, retval, False)
+
+###################################################################################
+# Movie and MetaData
+###################################################################################
 def get_movie(text):
     try:
         search_query = "%" + str(text) + "%"
@@ -55,7 +67,6 @@ def get_movie(text):
         print("No entry in Database")
         return None
 
-
 def get_genre(text):
     try:
         search_query = "%" + str(text) + "%"
@@ -67,7 +78,6 @@ def get_genre(text):
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
-
 
 def get_person(text):
     try:
@@ -82,7 +92,9 @@ def get_person(text):
         print("No entry in Database")
         return None
 
-
+###################################################################################
+# General Functions
+###################################################################################
 def set_uuid(uuid):
     try:
         post = DeviceModel(uuid, None)
@@ -110,18 +122,22 @@ def set_user(username, email, password):
         print(e)
         return False
 
+def get_user(username):
+    try:
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        result = engine.execute(
+            "SELECT id, username, email, password FROM user WHERE username = %s", username)
+        return result
+    except exc.SQLAlchemyError as e :
+        print("No entry in Database")
+        print(e)
+        return None
+
 def set_backup(user_id, history, rating, favourite):
     try:
-        ret = db.session.query(exists().where(BackupModel.user_id == user_id)).scalar()
-        backupObject = BackupModel.query.filter(BackupModel.user_id == user_id).one()
-        if ret:
-            if history != None: backupObject.history = history
-            if rating != None: backupObject.rating = rating
-            if favourite != None: backupObject.favourite = favourite
-        else:
-            post = BackupModel(user_id,history,rating,favourite)
-            db.session.add(post)
-            db.session.flush()
+        post = BackupModel(user_id,history,rating,favourite)
+        db.session.add(post)
+        db.session.flush()
         db.session.commit()
         return True
 
@@ -137,25 +153,3 @@ def get_backup(user_id):
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
-
-def get_user(username):
-    try:
-        engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        result = engine.execute(
-            "SELECT id, username, email, password FROM user WHERE username = %s", username)
-        return result
-    except exc.SQLAlchemyError as e :
-        print("No entry in Database")
-        print(e)
-        return None
-
-def set_response(id, retval, retry):
-    try:
-        engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        engine.execute("UPDATE rbz_api SET Response = %s WHERE Id = %s", (retval, str(id)))
-
-    except exc.SQLAlchemyError(e):
-        print("No entry in Database with ID: " + str(id))
-        print(e)
-        if retry:
-            set_response(id, retval, False)

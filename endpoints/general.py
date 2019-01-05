@@ -90,18 +90,13 @@ class DatabaseUser(Resource):
         """
         Insert Backup Objects for user
         """
-        user_id = request.args.get('user_id')
-        history = request.args.get('history')
-        favourite = request.args.get('favourite')
-        rating = request.args.get('rating')
+        data = request.json
 
-        modelObject = set_backup(user_id, history, favourite, rating)
+        modelObject = set_backup(data['user_id'], data['history'], data['rating'], data['favourite'])
         if modelObject:
             return 201
         else:
             return 401
-
-
 
 @ns.route('/backup/history/<int:user_id>')
 class DatabaseUser(Resource):
