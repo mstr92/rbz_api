@@ -139,6 +139,6 @@ class DatabaseUser(Resource):
     def get(self, user_id):
         modelObject = get_backup(user_id)
         if modelObject != None:
-            return "{rating_last:"+modelObject.rating_last+",history_last:"+modelObject.history_last+", favourite_last:"+modelObject.favourite_last+"}", 201
+            return "", 201
         else:
             return "", 401
