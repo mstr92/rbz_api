@@ -150,8 +150,11 @@ def set_user_device_id(username, deviceId):
             engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
                            (deviceId + ';', username))
         else:
+            currentIDs = str(userModel.deviceID)
+            console.log(currentIDs)
             splitUUID = userModel.deviceID.split(';')
             console.log(splitUUID)
+
         return 201
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
