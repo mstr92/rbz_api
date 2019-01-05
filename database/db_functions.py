@@ -151,6 +151,17 @@ def get_user(username):
         return None
 
 
+def get_user(id):
+    try:
+        db.session.commit()
+        userObject = UserModel.query.filter(UserModel.id == id).first()
+        cipher_suite = Fernet(CRYPTO_KEY)
+        return (cipher_suite.decrypt(userObject.password.encrypt()))
+    except exc.SQLAlchemyError as e:
+        print("No entry in Database")
+        print(e)
+        return None
+
 def set_backup(user_id, history, rating, favourite):
     try:
         backupObject = BackupModel.query.filter(BackupModel.user_id == user_id).first()

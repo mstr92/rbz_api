@@ -75,14 +75,23 @@ class DatabaseUser(Resource):
         """
         modelObject = get_user(username)
         if modelObject != None:
-            for row in modelObject:
-                print(row)
-            jsonResult = json.dumps([dict(row) for row in modelObject])
             return jsonResult, 201
         else:
             return "", 401
 
-
+@ns.route('/user/<int:id>')
+class DatabaseUser(Resource):
+    @api.response(201, 'User registered in database')
+    @api.response(401, 'Error: User not registered!')
+    def get(self, id):
+        """
+        Insert new User
+        """
+        modelObject = get_user(id)
+        if modelObject != None:
+            return modelObject, 201
+        else:
+            return "", 401
 
 @ns.route('/backup')
 class DatabaseUser(Resource):
