@@ -38,7 +38,3 @@ device_user = api.model('Device_User', {
     'username': fields.String(description='Username'),
     'deviceId': fields.String(description='deviceId')
 })
-user_password = api.model('User_Password', {
-    'username': fields.String(description='Username'),
-    'password': fields.String(description='password')
-})
