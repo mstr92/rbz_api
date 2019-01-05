@@ -8,3 +8,4 @@ sqlalchemy
 PyMySQL
 pyOpenSSL
 requests
+cryptography

@@ -8,6 +8,7 @@ from database.model import DataModel, DeviceModel, UserModel, BackupModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
+from cryptography.fernet import Fernet
 
 
 ###################################################################################
@@ -122,6 +123,8 @@ def set_user(username, email, password):
     try:
         userModel = UserModel.query.filter(UserModel.username == username).first()
         if userModel == None:
+
+
             post = UserModel(username, email, password)
             db.session.add(post)
             db.session.flush()
@@ -185,6 +188,8 @@ def set_backup(user_id, history, rating, favourite):
 
 def get_backup(user_id):
     try:
+        key = Fernet.generate_key()
+        print(key)
         db.session.commit()
         return BackupModel.query.filter(BackupModel.user_id == user_id).first()
     except exc.SQLAlchemyError:
