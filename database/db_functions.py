@@ -112,9 +112,16 @@ def set_user(username, email, password):
 
 def set_backup(user_id, history, rating, favourite):
     try:
-        post = BackupModel(user_id,history,rating,favourite)
-        db.session.add(post)
-        db.session.flush()
+        ret = db.session.query(exists().where(BackupModel.user_id == user_id)).scalar()
+        backupObject = BackupModel.query.filter(BackupModel.user_id == user_id).one()
+        if ret:
+            if history != None: backupObject.history = history
+            if rating != None: backupObject.rating = rating
+            if favourite != None: backupObject.favourite = favourite
+        else:
+            post = BackupModel(user_id,history,rating,favourite)
+            db.session.add(post)
+            db.session.flush()
         db.session.commit()
         return True
 
@@ -137,9 +144,6 @@ def get_user(username):
         result = engine.execute(
             "SELECT id, username, email, password FROM user WHERE username = %s", username)
         return result
-
-        # db.session.commit()
-        # return UserModel.query.filter(UserModel.username == username).one()
     except exc.SQLAlchemyError as e :
         print("No entry in Database")
         print(e)
