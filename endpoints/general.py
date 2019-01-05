@@ -117,7 +117,7 @@ class DatabaseUser(Resource):
     def get(self, user_id):
         modelObject = get_backup(user_id)
         if modelObject != None:
-            return modelObject.history, 201
+            return modelObject.favourite, 201
         else:
             return "", 401
 
@@ -128,7 +128,7 @@ class DatabaseUser(Resource):
     def get(self, user_id):
         modelObject = get_backup(user_id)
         if modelObject != None:
-            return modelObject.history, 201
+            return modelObject.rating, 201
         else:
             return "", 401
 
@@ -139,7 +139,7 @@ class DatabaseUser(Resource):
     def get(self, user_id):
         modelObject = get_backup(user_id)
         if modelObject != None:
-            return '[{"rating_last":"'+str(modelObject.rating_last)+'","history_last":"'+str(modelObject.history_last)+'", "favourite_last":"'+str(modelObject.favourite_last)+'"}]', 201
+            return str(modelObject.rating_last)+"," +str(modelObject.history_last)+","+str(modelObject.favourite_last), 201
 
         else:
             return "", 401
