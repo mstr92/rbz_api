@@ -30,13 +30,11 @@ class UserModel(db.Model):
     username = db.Column('username', db.String)
     email = db.Column('email', db.String)
     password = db.Column('password', db.String)
-    deviceID = db.Column('deviceID', db.String)
 
-    def __init__(self, username, email, password, deviceID):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password = password
-        self.deviceID = deviceID
 
 
 class BackupModel(db.Model):
