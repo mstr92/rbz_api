@@ -8,6 +8,8 @@ from database.model import DataModel, DeviceModel, UserModel, BackupModel
 from datetime import datetime, timedelta
 from sqlalchemy import exc, create_engine, MetaData, Table, Column, Integer, String, TIMESTAMP, text
 from settings import SQLALCHEMY_DATABASE_URI, EXPIRE_DAYS
+
+
 ###################################################################################
 # API - Functions
 ###################################################################################
@@ -17,6 +19,7 @@ def create_entry(request, response, parentId):
     db.session.flush()
     db.session.commit()
     return post.id
+
 
 def check_if_entry_exists(data):
     try:
@@ -32,6 +35,7 @@ def check_if_entry_exists(data):
         print("No entry in Database")
         return None, None
 
+
 def get_entry(id):
     try:
         db.session.commit()
@@ -39,6 +43,7 @@ def get_entry(id):
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
+
 
 def set_response(id, retval, retry):
     try:
@@ -50,6 +55,7 @@ def set_response(id, retval, retry):
         print(e)
         if retry:
             set_response(id, retval, False)
+
 
 ###################################################################################
 # Movie and MetaData
@@ -67,6 +73,7 @@ def get_movie(text):
         print("No entry in Database")
         return None
 
+
 def get_genre(text):
     try:
         search_query = "%" + str(text) + "%"
@@ -78,6 +85,7 @@ def get_genre(text):
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
+
 
 def get_person(text):
     try:
@@ -91,6 +99,7 @@ def get_person(text):
     except exc.SQLAlchemyError:
         print("No entry in Database")
         return None
+
 
 ###################################################################################
 # General Functions
@@ -113,7 +122,7 @@ def set_user(username, email, password):
     try:
         userModel = UserModel.query.filter(UserModel.username == username).first()
         if userModel == None:
-            post = UserModel(username,email,password)
+            post = UserModel(username, email, password)
             db.session.add(post)
             db.session.flush()
             db.session.commit()
@@ -126,31 +135,45 @@ def set_user(username, email, password):
         print(e)
         return 401
 
+
 def get_user(username):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
         result = engine.execute(
             "SELECT id, username, email, password FROM user WHERE username = %s", username)
         return result
-    except exc.SQLAlchemyError as e :
+    except exc.SQLAlchemyError as e:
         print("No entry in Database")
         print(e)
         return None
 
+
 def set_backup(user_id, history, rating, favourite):
     try:
         backupObject = BackupModel.query.filter(BackupModel.user_id == user_id).first()
-        if  backupObject == None:
-            post = BackupModel(user_id,history,rating,favourite)
+        if backupObject == None:
+            if history != '':
+                post = BackupModel(user_id, history, rating, favourite, None, None,
+                                   datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+            if rating != '':
+                post = BackupModel(user_id, history, rating, favourite, None,
+                                   datetime.now().strftime('%Y-%m-%d %H:%M:%S'), None)
+            if history != '':
+                post = BackupModel(user_id, history, rating, favourite,
+                                   datetime.now().strftime('%Y-%m-%d %H:%M:%S'), None, None)
+
             db.session.add(post)
             db.session.flush()
         else:
             if history != '':
                 backupObject.history = history
+                backupObject.history_last = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             if rating != '':
                 backupObject.rating = rating
+                backupObject.rating_last = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             if favourite != '':
                 backupObject.favourite = favourite
+                backupObject.favourite_last = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         db.session.commit()
         return True
 
@@ -158,6 +181,7 @@ def set_backup(user_id, history, rating, favourite):
         print("No entry in Database")
         print(e)
         return False
+
 
 def get_backup(user_id):
     try:

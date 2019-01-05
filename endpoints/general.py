@@ -50,6 +50,7 @@ class DatabaseUser(Resource):
     @api.expect(user, validate=False)
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
+    @api.response(410, 'Error: Username already in use!')
     def post(self):
         """
         Insert new User
