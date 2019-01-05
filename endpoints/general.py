@@ -4,7 +4,7 @@ import requests
 
 from helpers.restplus import api
 from flask_restplus import Resource
-from helpers.serializers import movie, backup, user
+from helpers.serializers import movie, backup, user, device_user
 from flask import request, abort, jsonify
 from settings import APPKEY, SECONDS_TO_WAIT_FOR_RESPONSE, API_KEY_TMDB
 from tasks.tasks import *
