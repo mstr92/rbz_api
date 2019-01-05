@@ -149,8 +149,7 @@ def set_user_device_id(username, deviceId):
         if userModel == None:
            return 401
         else:
-            print(userModel.deviceID)
-            if len(userModel.deviceID) > 0:
+            if userModel.deviceID != None:
                 splitUUID = userModel.deviceID.split(';')
                 if len(filter(lambda x: x == deviceId, splitUUID)) > 0:
                     return 410
