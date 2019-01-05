@@ -146,19 +146,20 @@ def set_user_device_id(username, deviceId):
     try:
         userModel = UserModel.query.filter(UserModel.username == username).first()
         if userModel == None:
-            currentId = userModel.deviceID
-            print(currentId)
-            if currentId == None:
-                userModel.deviceID = deviceId
-                db.session.commit()
-                return 201
-            else:
-                if deviceId in str(currentId):
-                    return 411
-                else:
-                    userModel.deviceID = currentId + ";" + deviceId
-                    db.session.commit()
-                    return 201
+            userModel.deviceID = deviceId
+            db.session.commit()
+            return 201
+            # currentId = userModel.deviceID
+            # print(currentId)
+            # if currentId == None:
+            #
+            # else:
+            #     if deviceId in str(currentId):
+            #         return 411
+            #     else:
+            #         userModel.deviceID = currentId + ";" + deviceId
+            #         db.session.commit()
+            #         return 201
         else:
             return 410
 
