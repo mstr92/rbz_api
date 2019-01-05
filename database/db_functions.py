@@ -145,7 +145,7 @@ def set_user(username, email, password):
 def set_user_device_id(username, deviceId):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        engine.execute("UPDATE user SET deviceID = CONCAT(deviceID, %s) WHERE username = %s", (username, deviceId))
+        engine.execute("UPDATE user SET deviceID = CONCAT(deviceID, %s) WHERE username = %s", (deviceId, username ))
         return 201
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
