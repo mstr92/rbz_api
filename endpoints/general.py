@@ -73,6 +73,7 @@ class DatabaseUser(Resource):
         Get User
         """
         modelObject = get_user(username)
+        jsonResult = json.dumps([dict(row) for row in modelObject])
         if modelObject != None:
             return jsonResult, 201
         else:
