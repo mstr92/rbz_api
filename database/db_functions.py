@@ -145,20 +145,23 @@ def set_user(username, email, password):
 def set_user_device_id(username, deviceId):
     try:
         userModel = UserModel.query.filter(UserModel.username == username).first()
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
         if userModel == None:
-            engine = create_engine(SQLALCHEMY_DATABASE_URI)
-            engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
-                           (deviceId + ';', username))
-            return 201
+           return 401
         else:
-            splitUUID = userModel.deviceID.split(';')
-            if len(filter(lambda x: x == deviceId, splitUUID)) > 0:
-                return 410
+            if len(userModel.deviceID) > 0:
+                splitUUID = userModel.deviceID.split(';')
+                if len(filter(lambda x: x == deviceId, splitUUID)) > 0:
+                    return 410
+                else:
+                    engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
+                                   (deviceId + ';', username))
+                    return 201
             else:
-                engine = create_engine(SQLALCHEMY_DATABASE_URI)
                 engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
                                (deviceId + ';', username))
                 return 201
+
 
 
     except exc.SQLAlchemyError as e:
