@@ -139,8 +139,7 @@ class DatabaseUser(Resource):
     def get(self, user_id):
         modelObject = get_backup(user_id)
         if modelObject != None:
-            # return "{rating_last:"+modelObject.rating_last+",history_last:"+modelObject.history_last+", favourite_last:"+modelObject.favourite_last+"}", 201
-            print(modelObject.rating_last)
-            return str(modelObject.rating_last), 201
+            return "{rating_last:"+str(modelObject.rating_last)+",history_last:"+str(modelObject.history_last)+", favourite_last:"+str(modelObject.favourite_last)+"}", 201
+
         else:
             return "", 401
