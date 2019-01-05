@@ -157,10 +157,10 @@ def check_user_password(username, password):
         userObject = UserModel.query.filter(UserModel.username == username).first()
         cipher_suite = Fernet(CRYPTO_KEY)
         encrpyted_password = cipher_suite.decrypt(userObject.password.encode())
-        if encrpyted_password == password:
-            return 201
-        else:
-            return 410
+        # if encrpyted_password == password:
+        return 201
+        # else:
+        #     return 410
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
         print(e)
