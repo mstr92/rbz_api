@@ -139,22 +139,10 @@ def set_user(username, email, password):
         return 401
 
 
-def get_user(username):
-    try:
-        engine = create_engine(SQLALCHEMY_DATABASE_URI)
-        result = engine.execute(
-            "SELECT id, username, email, password FROM user WHERE username = %s", username)
-        return result
-    except exc.SQLAlchemyError as e:
-        print("No entry in Database")
-        print(e)
-        return None
-
-
-def get_user(id):
+def get_user_password(username):
     try:
         db.session.commit()
-        userObject = UserModel.query.filter(UserModel.id == id).first()
+        userObject = UserModel.query.filter(UserModel.username == username).first()
         cipher_suite = Fernet(CRYPTO_KEY)
         return cipher_suite.decrypt(userObject.password.encode())
     except exc.SQLAlchemyError as e:

@@ -73,21 +73,21 @@ class DatabaseUser(Resource):
         """
         Insert new User
         """
-        modelObject = get_user(username)
+        modelObject = get_user_password(username)
         if modelObject != None:
             return jsonResult, 201
         else:
             return "", 401
 
-@ns.route('/user/<int:id>')
+@ns.route('/user/<string:username>')
 class DatabaseUser(Resource):
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
-    def get(self, id):
+    def get(self, username):
         """
         Insert new User
         """
-        modelObject = get_user(id)
+        modelObject = get_user_password(username)
         if modelObject != None:
             return modelObject, 201
         else:
