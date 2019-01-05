@@ -139,16 +139,33 @@ def set_user(username, email, password):
         return 401
 
 
-def get_user_password(username):
+def get_user(username):
     try:
-        db.session.commit()
-        userObject = UserModel.query.filter(UserModel.username == username).first()
-        cipher_suite = Fernet(CRYPTO_KEY)
-        return cipher_suite.decrypt(userObject.password.encode())
+        engine = create_engine(SQLALCHEMY_DATABASE_URI)
+        result = engine.execute(
+            "SELECT id, username, email FROM user WHERE username = %s", username)
+        return result
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
         print(e)
         return None
+
+
+def check_user_password(username, password):
+    try:
+        db.session.commit()
+        userObject = UserModel.query.filter(UserModel.username == username).first()
+        cipher_suite = Fernet(CRYPTO_KEY)
+        encrpyted_password = cipher_suite.decrypt(userObject.password.encode())
+        if encrpyted_password == password:
+            return 201
+        else:
+            return 410
+    except exc.SQLAlchemyError as e:
+        print("No entry in Database")
+        print(e)
+        return None
+
 
 def set_backup(user_id, history, rating, favourite):
     try:

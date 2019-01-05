@@ -63,18 +63,33 @@ class DatabaseUser(Resource):
         modelObject = set_user(username, email, password)
         return "", modelObject
 
-
 @ns.route('/user/<string:username>')
 class DatabaseUser(Resource):
+
     @api.response(201, 'User registered in database')
     @api.response(401, 'Error: User not registered!')
     def get(self, username):
         """
-        Insert new User
+        Get User
         """
-        modelObject = get_user_password(username)
+        modelObject = get_user(username)
         if modelObject != None:
-            return modelObject, 201
+            return jsonResult, 201
+        else:
+            return "", 401
+
+
+@ns.route('/password/<string:username>/<string:password>')
+class DatabaseUser(Resource):
+    @api.response(201, 'Password correct!')
+    @api.response(410, 'Password incorrect!')
+    def get(self, username, password):
+        """
+        Check Password
+        """
+        modelObject = check_user_password(username, password)
+        if modelObject != None:
+            return "" , modelObject
         else:
             return "", 401
 
