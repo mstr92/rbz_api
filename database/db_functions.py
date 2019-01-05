@@ -149,13 +149,18 @@ def set_user_device_id(username, deviceId):
             engine = create_engine(SQLALCHEMY_DATABASE_URI)
             engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
                            (deviceId + ';', username))
+            return 201
         else:
-            currentIDs = userModel.deviceID
-            print(currentIDs)
             splitUUID = userModel.deviceID.split(';')
-            print((len(filter(lambda x: x == deviceId, splitUUID)) > 0))
+            if len(filter(lambda x: x == deviceId, splitUUID)) > 0:
+                return 410
+            else:
+                engine = create_engine(SQLALCHEMY_DATABASE_URI)
+                engine.execute("UPDATE user SET deviceID = CONCAT(IFNULL(deviceID,''), %s ) WHERE username = %s",
+                               (deviceId + ';', username))
+                return 201
 
-        return 201
+
     except exc.SQLAlchemyError as e:
         print("No entry in Database")
         print(e)
