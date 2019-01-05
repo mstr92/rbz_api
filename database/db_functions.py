@@ -153,7 +153,7 @@ def set_user_device_id(username, deviceId):
             currentIDs = userModel.deviceID
             print(currentIDs)
             splitUUID = userModel.deviceID.split(';')
-            print(splitUUID)
+            print((len(filter(lambda x: x == deviceId, splitUUID)) > 0))
 
         return 201
     except exc.SQLAlchemyError as e:
