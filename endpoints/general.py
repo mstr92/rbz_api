@@ -75,8 +75,9 @@ class DatabaseUser(Resource):
         """
         modelObject = get_user(username)
         if modelObject != None:
-            print(modelObject.username)
-            jsonResult = json.dumps([dict(row) for row in modelObject])
+            test = [dict(row) for row in modelObject]
+            print(test)
+            jsonResult = json.dumps(test)
             return jsonResult, 201
         else:
             return "", 401
