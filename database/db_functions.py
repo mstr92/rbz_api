@@ -155,7 +155,8 @@ def check_user_password(username, password):
     try:
         userObject = UserModel.query.filter(UserModel.username == username).first()
         cipher_suite = Fernet(CRYPTO_KEY)
-        # print(cipher_suite.decrypt(userObject.password.encode()))
+        if(userObject != None):
+            encrpyted_password = cipher_suite.decrypt(userObject.password.encode())
         # if encrpyted_password == password:
         return 201
         # else:
